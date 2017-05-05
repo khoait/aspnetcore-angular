@@ -10,7 +10,7 @@ module.exports = (env) => {
     const sharedConfig = {
         stats: { modules: false },
         context: __dirname,
-        resolve: { extensions: [ '.js', '.ts' ] },
+        resolve: { extensions: [ '.js', '.ts', '.json' ] },
         output: {
             filename: '[name].js',
             publicPath: '/dist/' // Webpack dev middleware, if enabled, handles requests for this URL prefix
@@ -20,7 +20,7 @@ module.exports = (env) => {
                 { test: /\.ts$/, include: /ClientApp/, use: ['awesome-typescript-loader?silent=true', 'angular2-template-loader'] },
                 { test: /\.html$/, use: 'html-loader?minimize=false' },
                 { test: /\.css$/, use: ['to-string-loader', 'css-loader'] },
-                { test: /\.less$/, loader: extractStyles.extract('css-loader!less-loader') },
+                { test: /\.less/, include: /ClientApp/, loader: 'raw-loader!less-loader' },
                 { test: /\.(png|jpg|jpeg|gif|svg)$/, use: 'url-loader?limit=25000' }
             ]
         },
